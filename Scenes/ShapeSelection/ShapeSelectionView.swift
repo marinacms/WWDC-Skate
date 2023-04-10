@@ -12,10 +12,13 @@ struct ShapeSelectionView: View {
                            Shape(id: 2, image: Image("Mock")),
                            Shape(id: 3, image: Image("Mock"))]
     
+    // O Model Aqui
+    @ObservedObject var skateModel = SkateModel()
+    
     var body: some View {
         VStack{
             Spacer()
-            SkateView()
+            SkateView(skateModel: skateModel)
                 .frame(width: 450, height: 450, alignment: .top)
                 .padding(.top,80)
             ScrollView(.horizontal, showsIndicators: false) {
@@ -48,6 +51,7 @@ struct ShapeSelectionView: View {
             color = .red
         }
         await skateModel.updateNodeDiffuseColor(node: skateModel.wheelNode, color: color)
+//        await SkateModel.updateNodeDiffuseColor(<#T##self: SkateModel##SkateModel#>)
     }
     
 }

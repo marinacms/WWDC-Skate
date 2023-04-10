@@ -18,12 +18,16 @@ class SkateModel: ObservableObject {
     init() {
         // guard let para tentar acessar os dados reais e exibir erro caso não consiga
         do {
-            guard let url = Bundle.main.url(forResource: "SM_Skate1024", withExtension: "scn", subdirectory: "3DAssets") else {
+//            guard let url = Bundle.main.url(forResource: "3DAssets/SM_Skate1024", withExtension: "scn", subdirectory: "3DAssets") else {
+//                fatalError("Could not find 3D file.")
+//            }
+//            guard let skateScene =
+//            let skateScene = try SCNScene(url: url, options: nil)
+            guard let skateScene = SCNScene(named: "SM_Skate1024.scn") else {
                 fatalError("Could not find 3D file.")
             }
-            let skateScene = try SCNScene(url: url, options: nil)
             guard let skateNode = skateScene.rootNode.childNodes.first,
-                let wheelNode = skateNode.childNode(withName: "wheel", recursively: true),
+                let wheelNode = skateNode.childNode(withName: "whell", recursively: true),
                 let truckNode = skateNode.childNode(withName: "truck", recursively: true),
                 let screwNode = skateNode.childNode(withName: "screw", recursively: true),
                 let shapeNode = skateNode.childNode(withName: "shape", recursively: true) else {

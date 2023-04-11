@@ -22,7 +22,7 @@ struct ShapeSelectionView: View {
                            Truck(id: 8, image: Image("Mock")),
                            Truck(id: 9, image: Image("Mock"))]
     var count = 0
-
+    
     // O Model Aqui
     @ObservedObject var skateModel = SkateModel()
     
@@ -34,31 +34,25 @@ struct ShapeSelectionView: View {
                 .padding(.top,80)
             if count == 0 {
                 SkatePartsList(skateParts: wheels) { id in
-                    Task {
-                        await updateSkateModel(id: id)
-                    }
+                    updateSkateModel(id: id)
                 }.padding()
             } else if count == 1 {
                 SkatePartsList(skateParts: shapes) { id in
-                    Task {
-                        await updateSkateModel(id: id)
-                    }
+                    updateSkateModel(id: id)
                 }.padding()
             } else if count == 2 {
                 SkatePartsList(skateParts: trucks) { id in
-                    Task {
-                        await updateSkateModel(id: id)
-                    }
+                    updateSkateModel(id: id)
                 }.padding()
             }
             Spacer()
         }
     }
     
-    private func updateSkateModel(id: Int) async {
+    private func updateSkateModel(id: Int) {
         var node: SCNNode?
         var image: UIImage?
-        var color: UIColor?
+        var color: UIColor? = .red
         
         switch id {
         case 1...3:
@@ -100,13 +94,13 @@ struct ShapeSelectionView: View {
         
         if let node, let color {
             if node == skateModel.wheelNode{
-                await skateModel.updateNodeDiffuseColor(node: node, color: color)
+                skateModel.updateNodeDiffuseColor(node: node, color: color)
             }
         }
         
         if let image, let node {
             if node != skateModel.wheelNode{
-                await skateModel.updateNodeDiffuseImage(node: node, image: image)
+                skateModel.updateNodeDiffuseImage(node: node, image: image)
             }
         }
     }

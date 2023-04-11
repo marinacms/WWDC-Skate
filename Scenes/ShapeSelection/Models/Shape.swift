@@ -13,7 +13,6 @@ struct Shape: Identifiable, SkatePart {
     var image: Image
 
     func didTapImage() -> Int {
-        print("Did Tap Shape \(id)")
         return id
     }
 }

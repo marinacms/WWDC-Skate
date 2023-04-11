@@ -55,21 +55,21 @@ class SkateModel: ObservableObject {
     }
     
     // Atualiza a cor do diffuse do node passado
-    func updateNodeDiffuseColor(node: SCNNode, color: UIColor) async {
-        guard let material = await node.geometry?.materials.first else { return }
+    func updateNodeDiffuseColor(node: SCNNode, color: UIColor) {
+        guard let material = node.geometry?.materials.first else { return }
         
         material.diffuse.contents = color
         
-        await node.geometry?.firstMaterial = material
+        node.geometry?.firstMaterial = material
     }
     
     // Atualiza a imagem do diffuse do node passado
-    func updateNodeDiffuseImage(node: SCNNode, image: UIImage) async {
-        guard let material = await node.geometry?.materials.first else { return }
+    func updateNodeDiffuseImage(node: SCNNode, image: UIImage) {
+        guard let material = node.geometry?.materials.first else { return }
         
         material.diffuse.contents = image
         
-        await node.geometry?.firstMaterial = material
+        node.geometry?.firstMaterial = material
     }
         
 }

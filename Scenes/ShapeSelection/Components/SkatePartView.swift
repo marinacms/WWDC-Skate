@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SkapePartView: View {
+struct SkatePartView: View {
     var skatePart: any SkatePart
     var onSelection: ((Int) -> Void)?
     

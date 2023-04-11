@@ -13,7 +13,6 @@ struct Wheel: Identifiable, SkatePart {
     var image: Image
     
     func didTapImage() -> Int {
-        print("Did tap Wheel \(id)")
         return id
     }
 }

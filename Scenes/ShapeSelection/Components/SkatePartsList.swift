@@ -15,7 +15,7 @@ struct SkatePartsList<T: SkatePart>: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
                 ForEach(skateParts){ skatePart in
-                    SkapePartView(skatePart: skatePart) { id in
+                    SkatePartView(skatePart: skatePart) { id in
                         onSelection?(skatePart.id)
                     }
                 }

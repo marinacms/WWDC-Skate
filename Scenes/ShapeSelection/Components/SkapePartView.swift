@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-struct ShapePartView: View {
-    @State var shape: Shape
+struct SkapePartView: View {
+    var skatePart: any SkatePart
+    var onSelection: ((Int) -> Void)?
     
     var body: some View {
-        shape.image
+        skatePart.image
             .padding()
             .scaledToFit()
             .onTapGesture {
-                print(shape.id)
+                onSelection?(skatePart.didTapImage())
             }
     }
 }
-
-

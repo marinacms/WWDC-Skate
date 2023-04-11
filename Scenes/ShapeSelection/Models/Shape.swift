@@ -8,7 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct Shape: Identifiable {
+struct Shape: Identifiable, SkatePart {
     var id: Int
     var image: Image
+
+    func didTapImage() -> Int {
+        print("Did Tap Shape \(id)")
+        return id
+    }
 }

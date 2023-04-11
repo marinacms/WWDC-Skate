@@ -18,16 +18,11 @@ class SkateModel: ObservableObject {
     init() {
         // guard let para tentar acessar os dados reais e exibir erro caso não consiga
         do {
-//            guard let url = Bundle.main.url(forResource: "3DAssets/SM_Skate1024", withExtension: "scn", subdirectory: "3DAssets") else {
-//                fatalError("Could not find 3D file.")
-//            }
-//            guard let skateScene =
-//            let skateScene = try SCNScene(url: url, options: nil)
-            guard let skateScene = SCNScene(named: "SM_Skate1024.scn") else {
+            guard let skateScene = SCNScene(named: AssetManager.skateScn.filename) else {
                 fatalError("Could not find 3D file.")
             }
             guard let skateNode = skateScene.rootNode.childNodes.first,
-                let wheelNode = skateNode.childNode(withName: "whell", recursively: true),
+                let wheelNode = skateNode.childNode(withName: "wheel", recursively: true),
                 let truckNode = skateNode.childNode(withName: "truck", recursively: true),
                 let screwNode = skateNode.childNode(withName: "screw", recursively: true),
                 let shapeNode = skateNode.childNode(withName: "shape", recursively: true) else {
@@ -41,8 +36,6 @@ class SkateModel: ObservableObject {
             self.screwNode = screwNode
             self.shapeNode = shapeNode
             
-        } catch {
-            fatalError("Failed to load 3D file: \(error.localizedDescription)")
         }
     }
     
@@ -56,6 +49,7 @@ class SkateModel: ObservableObject {
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.camera?.zFar = 150
         
+        skateNode.scale = SCNVector3(3, 3, 3)
         scene.rootNode.addChildNode(skateNode)
         return scene
     }

@@ -45,11 +45,11 @@ class SkateModel: ObservableObject {
         
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0.0, y: 0.0, z: 100.0)
+        cameraNode.position = SCNVector3(x: 0, y: 0.0, z: 100.0)
         scene.rootNode.addChildNode(cameraNode)
-        cameraNode.camera?.zFar = 150
+        cameraNode.camera?.zFar = 165
         
-        skateNode.scale = SCNVector3(4, 4, 4)
+        skateNode.scale = SCNVector3(3.8, 3.8, 3.8)
         scene.rootNode.addChildNode(skateNode)
         return scene
     }
@@ -77,7 +77,6 @@ class SkateModel: ObservableObject {
         guard var material = node.geometry?.materials.first else { return }
         
         material = newMaterial
-        
         node.geometry?.firstMaterial = material
     }
     

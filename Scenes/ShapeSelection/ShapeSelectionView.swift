@@ -21,7 +21,7 @@ struct ShapeSelectionView: View {
     var trucks: [Truck] = [Truck(id: 7, image: Image("Mock")),
                            Truck(id: 8, image: Image("Mock")),
                            Truck(id: 9, image: Image("Mock"))]
-    var count = 0
+   @State var count = 0
     
     @State var countSelection = 0
     
@@ -58,7 +58,7 @@ struct ShapeSelectionView: View {
                     }
                 }
                 HStack{
-                    if countSelection == 3{
+                    if countSelection == 2{
                         NavigationLink {
                             FinalView()
                                 .navigationBarBackButtonHidden(true)
@@ -70,6 +70,7 @@ struct ShapeSelectionView: View {
                     } else {
                         Button{
                             self.countSelection += 1
+                            self.count += 1
                         } label:{
                             Text("OK").padding(40)
                                 .padding(.trailing, 16)
@@ -103,7 +104,7 @@ struct ShapeSelectionView: View {
         case 4...6:
             node = skateModel.shapeNode
             if id == 4 {
-                image = UIImage(named: "Mock")
+                image = UIImage(named: "Shape1")
             }
             if id == 5 {
                 image = UIImage(named: "Shape2")

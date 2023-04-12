@@ -12,15 +12,19 @@ struct SkatePartsList<T: SkatePart>: View {
     var onSelection: ((Int) -> Void)?
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
-                ForEach(skateParts){ skatePart in
-                    SkatePartView(skatePart: skatePart) { id in
-                        onSelection?(skatePart.id)
+        ZStack{
+//            Color.mint
+            HStack(){
+    //            ScrollView(.horizontal, showsIndicators: false) {
+                    ForEach(skateParts){ skatePart in
+                        SkatePartView(skatePart: skatePart) { id in
+                            onSelection?(skatePart.id)
+                        }
                     }
-                }
+    //            }
+//                .background(Color.mint)
             }
-            .padding()
         }
+        
     }
 }

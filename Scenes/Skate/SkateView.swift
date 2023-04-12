@@ -7,6 +7,6 @@ struct SkateView: View {
     var body: some View {
         SceneView(scene: skateModel.getScene(),
                   options: [.autoenablesDefaultLighting, .allowsCameraControl])
-        .padding()
+//        .padding()
     }
 }

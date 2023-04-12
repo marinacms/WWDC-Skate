@@ -18,7 +18,7 @@ class SkateModel: ObservableObject {
     init() {
         // guard let para tentar acessar os dados reais e exibir erro caso não consiga
         do {
-            guard let skateScene = SCNScene(named: AssetManager.skateScn.filename) else {
+            guard let skateScene = SCNScene(named: "SM_Skate1024.scn") else {
                 fatalError("Could not find 3D file.")
             }
             guard let skateNode = skateScene.rootNode.childNodes.first,
@@ -49,12 +49,12 @@ class SkateModel: ObservableObject {
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.camera?.zFar = 150
         
-        skateNode.scale = SCNVector3(3, 3, 3)
+        skateNode.scale = SCNVector3(4, 4, 4)
         scene.rootNode.addChildNode(skateNode)
         return scene
     }
     
-    // Atualiza a cor do diffuse do node passado
+    // Atualiza a cor do diffuse do node
     func updateNodeDiffuseColor(node: SCNNode, color: UIColor) {
         guard let material = node.geometry?.materials.first else { return }
         
@@ -63,7 +63,7 @@ class SkateModel: ObservableObject {
         node.geometry?.firstMaterial = material
     }
     
-    // Atualiza a imagem do diffuse do node passado
+    // Atualiza a imagem do diffuse do node
     func updateNodeDiffuseImage(node: SCNNode, image: UIImage) {
         guard let material = node.geometry?.materials.first else { return }
         
@@ -71,5 +71,28 @@ class SkateModel: ObservableObject {
         
         node.geometry?.firstMaterial = material
     }
+    
+    // Atualiza o material do node
+    func updateNodeMaterial(node: SCNNode, newMaterial: SCNMaterial) {
+        guard var material = node.geometry?.materials.first else { return }
+        
+        material = newMaterial
+        
+        node.geometry?.firstMaterial = material
+    }
+    
+    //            static func copyGeometryAndMaterials(_ geometry: SCNGeometry) -> SCNGeometry {
+    //                if let geometryCopy = geometry.copy() as? SCNGeometry {
+    //                    var materialsCopy = [SCNMaterial]()
+    //                    for material in geometryCopy.materials {
+    //                        if let materialCopy = material.copy() as? SCNMaterial {
+    //                            materialsCopy.append(materialCopy)
+    //                        }
+    //                    }
+    //                    geometryCopy.materials = materialsCopy
+    //                    return geometryCopy
+    //                }
+    //                return geometry
+    //            }
         
 }

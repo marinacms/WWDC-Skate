@@ -23,30 +23,64 @@ struct ShapeSelectionView: View {
                            Truck(id: 9, image: Image("Mock"))]
     var count = 0
     
+    @State var countSelection = 0
+    
     // O Model Aqui
     @ObservedObject var skateModel = SkateModel()
     
     var body: some View {
+        //        NavigationView{
         VStack{
-            Spacer()
+            //                Spacer()
             SkateView(skateModel: skateModel)
-                .frame(width: 600, height: 600, alignment: .top)
-                .padding(.top,80)
-            if count == 0 {
-                SkatePartsList(skateParts: wheels) { id in
-                    updateSkateModel(id: id)
-                }.padding()
-            } else if count == 1 {
-                SkatePartsList(skateParts: shapes) { id in
-                    updateSkateModel(id: id)
-                }.padding()
-            } else if count == 2 {
-                SkatePartsList(skateParts: trucks) { id in
-                    updateSkateModel(id: id)
-                }.padding()
+                .frame(width: UIScreen.main.bounds.width*0.9, height: UIScreen.main.bounds.height*0.60, alignment: .top)
+            //                    .padding(.top, 80)
+                .background(Color.pink)
+            //                Spacer()
+            ZStack{
+                //                    Spacer()
+                //                    Text("oi")
+                HStack{
+                    if count == 0 {
+                        SkatePartsList(skateParts: shapes) { id in
+                            updateSkateModel(id: id)
+                        }
+                        //                        .padding()
+                    } else if count == 1 {
+                        SkatePartsList(skateParts: trucks) { id in
+                            updateSkateModel(id: id)
+                        }
+                        //                        .padding()
+                    } else if count == 2 {
+                        SkatePartsList(skateParts: wheels) { id in
+                            updateSkateModel(id: id)
+                        }
+                    }
+                }
+                HStack{
+                    if countSelection == 3{
+                        NavigationLink {
+                            FinalView()
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            Text("NEXT").padding(40)
+                                .padding(.trailing, 16)
+                        }
+                        
+                    } else {
+                        Button{
+                            self.countSelection += 1
+                        } label:{
+                            Text("OK").padding(40)
+                                .padding(.trailing, 16)
+                            
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            Spacer()
-        }
+        }.ignoresSafeArea()
+        
     }
     
     private func updateSkateModel(id: Int) {
@@ -72,18 +106,18 @@ struct ShapeSelectionView: View {
                 image = UIImage(named: "Mock")
             }
             if id == 5 {
-                image = UIImage(named: "Mock")
+                image = UIImage(named: "Shape2")
             }
             if id == 6 {
-                image = UIImage(named: "Mock")
+                image = UIImage(named: "Shape3")
             }
         case 7...9:
             node = skateModel.truckNode
             if id == 7 {
-                image = UIImage(named: "Mock")
+                image = UIImage(named: "Truck1")
             }
             if id == 8 {
-                image = UIImage(named: "Mock")
+                image = UIImage(named: "Truck2")
             }
             if id == 9 {
                 image = UIImage(named: "Mock")
@@ -103,5 +137,8 @@ struct ShapeSelectionView: View {
                 skateModel.updateNodeDiffuseImage(node: node, image: image)
             }
         }
+        
+    
+        }
     }
-}
+

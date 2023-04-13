@@ -9,25 +9,26 @@ import SwiftUI
 
 struct FinalView: View {
     
-    @State var opacity = 0.0
-    
     var body: some View {
-        ZStack{
-            VStack {
-                Text("oi")
-            }
-//            Button {
-//                print("button pressed ")
-//            } label: {
-//                Image("Mock")
-//            }
+        VStack{
+            Spacer()
+            HStack(spacing: 100) {
+                Button {
+                    
+                } label: {
+                    Text("About").font(.largeTitle)
+                }
+                
+                Button {
+                    
+                } label: {
+                    Text("Credits").font(.largeTitle)
+                }
+                
+            }.padding(.bottom, 100)
         }
-        .opacity(opacity)
-        .onAppear{
-            withAnimation(.easeIn(duration: 3.0)) {
-                opacity = 1.0
-            }
-        }
+        
+        if Button
     }
 }
 

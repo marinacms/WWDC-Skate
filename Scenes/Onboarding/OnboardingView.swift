@@ -11,7 +11,7 @@ struct Onboarding: View {
     var body: some View {
         NavigationView{
             NavigationLink {
-                ShapeSelectionView() .navigationBarBackButtonHidden(true)
+                Apresentation() .navigationBarBackButtonHidden(true)
             } label: {
                 Image("Mock")
                     .scaleEffect(0.4)

@@ -1,7 +1,15 @@
+//
+//  SkateFinal.swift
+//  WWDC-Skate
+//
+//  Created by Marina Cristina Marques dos santos on 13/04/23.
+//
+
 import SwiftUI
 import SceneKit
 
-struct SkateView: View {
+struct SkateFinal: View {
+    
     @ObservedObject var skateModel: SkateModel
     
     var body: some View {

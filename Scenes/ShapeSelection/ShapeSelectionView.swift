@@ -35,7 +35,7 @@ struct ShapeSelectionView: View {
             SkateView(skateModel: skateModel)
                 .frame(width: UIScreen.main.bounds.width*0.9, height: UIScreen.main.bounds.height*0.60, alignment: .top)
             //                    .padding(.top, 80)
-                .background(Color.pink)
+               
             //                Spacer()
             ZStack{
                 //                    Spacer()
@@ -60,11 +60,12 @@ struct ShapeSelectionView: View {
                 HStack{
                     if countSelection == 2{
                         NavigationLink {
-                            FinalView()
+                            SkateFinal(skateModel: skateModel)
                                 .navigationBarBackButtonHidden(true)
                         } label: {
                             Text("NEXT").padding(40)
                                 .padding(.trailing, 16)
+                                
                         }
                         
                     } else {
@@ -121,7 +122,7 @@ struct ShapeSelectionView: View {
                 image = UIImage(named: "Truck2")
             }
             if id == 9 {
-                image = UIImage(named: "Mock")
+                image = UIImage(named: "Truck3")
             }
         default:
             break
@@ -134,7 +135,7 @@ struct ShapeSelectionView: View {
         }
         
         if let image, let node {
-            if node != skateModel.wheelNode{
+            if node != skateModel.wheelNode {
                 skateModel.updateNodeDiffuseImage(node: node, image: image)
             }
         }

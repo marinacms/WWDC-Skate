@@ -8,13 +8,26 @@
 import SwiftUI
 
 struct FinalView: View {
+    
+    @State var opacity = 0.0
+    
     var body: some View {
-        Button {
-            print("button pressed ")
-        } label: {
-            Image("Mock")
+        ZStack{
+            VStack {
+                Text("oi")
+            }
+//            Button {
+//                print("button pressed ")
+//            } label: {
+//                Image("Mock")
+//            }
         }
-
+        .opacity(opacity)
+        .onAppear{
+            withAnimation(.easeIn(duration: 3.0)) {
+                opacity = 1.0
+            }
+        }
     }
 }
 
@@ -24,7 +37,4 @@ struct FinalView_Previews: PreviewProvider {
     }
 }
 
-//Button ("Botão"){
-//    print("o botao foi pressionado")
-//    Image("Button")
-//}
+

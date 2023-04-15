@@ -10,11 +10,33 @@ import SceneKit
 
 struct SkateFinal: View {
     
+    @State var count = 0
     @ObservedObject var skateModel: SkateModel
+    let images = ["Button", "Button"]
     
     var body: some View {
-        CustomSceneView(scene: skateModel.getScene())
-//        SceneView(scene: skateModel.getScene(),
-//                  options: [.autoenablesDefaultLighting, .allowsCameraControl])
+        VStack{
+            CustomSceneView(scene: skateModel.getScene())
+            getImage(num: count)
+            
+            if count != images.count - 1 {
+                Button(action: { count += 1 }) {
+                    Text("Ok")
+                }
+            } else {
+                NavigationLink(destination: {
+                    FinalView()
+                        .navigationBarBackButtonHidden(true)
+                }, label: {
+                    Text("next")
+                })
+            }
+        }
+    }
+    
+    func getImage(num: Int) -> Image {
+        
+        let image = Image(images[num])
+        return image
     }
 }

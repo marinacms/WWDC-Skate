@@ -9,26 +9,35 @@ import SwiftUI
 
 struct FinalView: View {
     
+    @State var count = 0
     var body: some View {
-        VStack{
-            Spacer()
-            HStack(spacing: 100) {
-                Button {
+        ZStack {
+            if count == 0{
+                Image("Mock").resizable().scaledToFit()
+            } else if count == 1{
+                Image("Mock1").resizable()
+            } else if count == 2 {
+                Image("Mock").resizable().scaledToFit()
+            }
+            
+            VStack {
+                Spacer()
+                HStack(spacing: 100) {
+                    Button {
+                       count = 1
+                    } label: {
+                        Text("About").font(.largeTitle).background(Color.mint)
+                    }
                     
-                } label: {
-                    Text("About").font(.largeTitle)
-                }
-                
-                Button {
+                    Button {
+                        count = 2
+                    } label: {
+                        Text("Credits").font(.largeTitle).background(Color.mint)
+                    }
                     
-                } label: {
-                    Text("Credits").font(.largeTitle)
-                }
-                
-            }.padding(.bottom, 100)
+                }.padding(.bottom, 100)
+            }
         }
-        
-        if Button
     }
 }
 

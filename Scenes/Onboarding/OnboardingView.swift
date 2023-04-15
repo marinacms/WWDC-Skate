@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Onboarding: View {
     var body: some View {
-        NavigationView{
             NavigationLink {
                 Apresentation() .navigationBarBackButtonHidden(true)
             } label: {
@@ -18,10 +17,9 @@ struct Onboarding: View {
                     .aspectRatio(contentMode: .fit)
             }
         }
-        .navigationViewStyle(.stack)
         
     }
-}
+
 
 struct Onboarding_Previews: PreviewProvider {
     static var previews: some View {

@@ -6,6 +6,7 @@
 //
 
 import SceneKit
+import UIKit
 
 class SkateModel: ObservableObject {
     @Published var skateScene: SCNScene
@@ -35,8 +36,18 @@ class SkateModel: ObservableObject {
             self.truckNode = truckNode
             self.screwNode = screwNode
             self.shapeNode = shapeNode
-            
+            initialMaterialSetup()
         }
+    }
+    
+    func initialMaterialSetup(){
+        let shapeMaterial = shapeNode.geometry?.materials.first
+        let wheelMaterial = wheelNode.geometry?.materials.first
+        let truckMaterial = truckNode.geometry?.materials.first
+        
+        shapeMaterial?.diffuse.contents = UIColor.white
+        wheelMaterial?.diffuse.contents = UIColor.white
+        truckMaterial?.diffuse.contents = UIImage(named: "Truck1")
     }
     
     // Metodo que retorna uma SCNScene com uma camera e o skateNode
@@ -78,6 +89,22 @@ class SkateModel: ObservableObject {
         
         material = newMaterial
         node.geometry?.firstMaterial = material
+    }
+    
+    func hideOrShowSkateNodes(count: Int){
+        switch count {
+        case 0:
+            wheelNode.isHidden = true
+            screwNode.isHidden = true
+            truckNode.isHidden = true
+        case 1:
+            truckNode.isHidden = false
+        case 2:
+            wheelNode.isHidden = false
+            screwNode.isHidden = false
+        default:
+            break
+        }
     }
     
     //            static func copyGeometryAndMaterials(_ geometry: SCNGeometry) -> SCNGeometry {

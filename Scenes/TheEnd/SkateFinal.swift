@@ -32,6 +32,9 @@ struct SkateFinal: View {
                 })
             }
         }
+        .onAppear{
+            SoundManager.shared.play(name: "g2", withExtension: "MP3")
+        }
     }
     
     func getImage(num: Int) -> Image {
@@ -40,3 +43,5 @@ struct SkateFinal: View {
         return image
     }
 }
+
+

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SkatePartView: View {
-    var skatePart: any SkatePart
+    @State var skatePart: any SkatePart
     var onSelection: ((Int) -> Void)?
     
     var body: some View {
@@ -17,7 +17,6 @@ struct SkatePartView: View {
             .aspectRatio(contentMode: .fit)
             .padding(.horizontal, 12)
             .padding(.vertical, 24)
-
             .onTapGesture {
                 onSelection?(skatePart.didTapImage())
             }

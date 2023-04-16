@@ -13,44 +13,35 @@ struct ShapeSelectionView: View {
     var wheels: [Wheel] = [Wheel(id: 1, image: Image("Mock")),
                            Wheel(id: 2, image: Image("Mock")),
                            Wheel(id: 3, image: Image("Mock"))]
-    
+
     var shapes: [Shape] = [Shape(id: 4, image: Image("Mock")),
                            Shape(id: 5, image: Image("Mock")),
                            Shape(id: 6, image: Image("Mock"))]
-    
+
     var trucks: [Truck] = [Truck(id: 7, image: Image("Mock")),
                            Truck(id: 8, image: Image("Mock")),
                            Truck(id: 9, image: Image("Mock"))]
-   @State var count = 0
-    
+    @State var count = 0
     @State var countSelection = 0
     
     // O Model Aqui
     @ObservedObject var skateModel = SkateModel()
     
     var body: some View {
-        //        NavigationView{
-        VStack{
-            //                Spacer()
+        VStack {
             SkateView(skateModel: skateModel)
                 .frame(width: UIScreen.main.bounds.width*0.9, height: UIScreen.main.bounds.height*0.60, alignment: .top)
-            //                    .padding(.top, 80)
-               
-            //                Spacer()
+            Text("Nota: você pode movimentar seu skate e aproximar em cada detalhe que desejar")
             ZStack{
-                //                    Spacer()
-                //                    Text("oi")
                 HStack{
                     if count == 0 {
                         SkatePartsList(skateParts: shapes) { id in
                             updateSkateModel(id: id)
                         }
-                        //                        .padding()
                     } else if count == 1 {
                         SkatePartsList(skateParts: trucks) { id in
                             updateSkateModel(id: id)
                         }
-                        //                        .padding()
                     } else if count == 2 {
                         SkatePartsList(skateParts: wheels) { id in
                             updateSkateModel(id: id)
@@ -65,24 +56,29 @@ struct ShapeSelectionView: View {
                         } label: {
                             Text("NEXT").padding(40)
                                 .padding(.trailing, 16)
-                                
+                            
                         }
+                        .disabled(false)
                         
                     } else {
                         Button{
+                            SoundManager.shared.play(name: "g2", withExtension: "MP3")
+                            
                             self.countSelection += 1
                             self.count += 1
+                            hideOrShowSkateNodes(count: count)
                         } label:{
                             Text("OK").padding(40)
                                 .padding(.trailing, 16)
-                            
                         }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }.ignoresSafeArea()
-        
+            .onAppear {
+                hideOrShowSkateNodes(count: count)
+            }
     }
     
     private func updateSkateModel(id: Int) {
@@ -97,7 +93,7 @@ struct ShapeSelectionView: View {
                 color = .red
             }
             if id == 2 {
-                color = .green
+                color = .white
             }
             if id == 3 {
                 color = .blue
@@ -139,8 +135,9 @@ struct ShapeSelectionView: View {
                 skateModel.updateNodeDiffuseImage(node: node, image: image)
             }
         }
-        
-    
-        }
     }
-
+    
+    private func hideOrShowSkateNodes(count: Int) {
+        skateModel.hideOrShowSkateNodes(count: count)
+    }
+}

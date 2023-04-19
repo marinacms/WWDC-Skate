@@ -10,15 +10,17 @@ import SwiftUI
 struct Onboarding: View {
     var body: some View {
             NavigationLink {
-                Apresentation() .navigationBarBackButtonHidden(true)
+                IntroView() .navigationBarBackButtonHidden(true)
             } label: {
                 Image("Mock")
                     .scaleEffect(0.4)
                     .aspectRatio(contentMode: .fit)
+            }.onAppear{
+                SoundManager.shared.playBackgroundLoop(name: "energeticHiphop")
             }
-        }
-        
     }
+        
+}
 
 
 struct Onboarding_Previews: PreviewProvider {

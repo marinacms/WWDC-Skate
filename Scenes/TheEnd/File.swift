@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CustomSceneView: UIViewRepresentable {
     
-    var scene: SCNScene?
+    var scene: SCNScene
     
     func makeUIView(context: Context) -> some SCNView {
         let view = SCNView()

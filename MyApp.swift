@@ -7,7 +7,6 @@ struct MyApp: App {
             NavigationView{
               ShapeSelectionView()
             }.navigationViewStyle(.stack)
-
         }
     }
 }

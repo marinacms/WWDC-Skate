@@ -11,6 +11,7 @@ import AVFoundation
 class SoundManager{
     static let shared = SoundManager()
     var player: AVAudioPlayer?
+    var backgroundPlayer: AVAudioPlayer?
     
     private init() {
     }
@@ -24,5 +25,29 @@ class SoundManager{
         } catch{
             print("não consegui tocar o som")
         }
+    }
+    
+    func playBackgroundLoop(name: String){
+        let url = Bundle.main.url(forResource: name, withExtension: "mp3")!
+        
+        do{
+            self.backgroundPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            self.backgroundPlayer?.numberOfLoops = -1
+            
+            self.backgroundPlayer?.prepareToPlay()
+            self.backgroundPlayer?.volume = 0
+            self.backgroundPlayer?.play()
+            self.backgroundPlayer?.setVolume(1, fadeDuration: 3.0)
+            
+            
+        } catch{
+            print("não consegui tocar o som de background")
+        }
+    }
+    
+    func stopPlayBackgroundLoop(){
+        self.backgroundPlayer?.stop()
+        self.backgroundPlayer = nil
+        print("parou")
     }
 }

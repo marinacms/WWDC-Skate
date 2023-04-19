@@ -11,16 +11,18 @@ import SceneKit
 struct SkateFinal: View {
     
     @State var count = 0
-    @ObservedObject var skateModel: SkateModel
+    var skateScene: SCNScene
     let images = ["Button", "Button"]
     
     var body: some View {
         VStack{
-            CustomSceneView(scene: skateModel.getScene())
+            CustomSceneView(scene: skateScene)
             getImage(num: count)
             
             if count != images.count - 1 {
-                Button(action: { count += 1 }) {
+                Button(action: {
+                    count += 1
+                }) {
                     Text("Ok")
                 }
             } else {
@@ -33,15 +35,14 @@ struct SkateFinal: View {
             }
         }
         .onAppear{
-            SoundManager.shared.play(name: "g2", withExtension: "MP3")
+            SoundManager.shared.play(name: "click", withExtension: "mp3")
+        }.onDisappear{
+            SoundManager.shared.stopPlayBackgroundLoop()
         }
     }
     
-    func getImage(num: Int) -> Image {
-        
+    private func getImage(num: Int) -> Image {
         let image = Image(images[num])
         return image
     }
 }
-
-

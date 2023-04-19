@@ -19,7 +19,6 @@ struct IntroView: View {
             Image("background1")
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width)
-            
                 .ignoresSafeArea(.all)
             ZStack{
                 //Spacer()
@@ -54,6 +53,8 @@ struct IntroView: View {
                 .offset(x: 440, y: 420)
                 
             }
+        }.onAppear{
+            SoundManager.shared.play(name: "click", withExtension: "mp3")
         }
     }
     
@@ -64,9 +65,5 @@ struct IntroView: View {
     }
 }
 
-struct Apresentation_Previews: PreviewProvider {
-    static var previews: some View {
-        IntroView()
-    }
-}
+
 

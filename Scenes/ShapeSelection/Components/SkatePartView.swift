@@ -13,10 +13,11 @@ struct SkatePartView: View {
     
     var body: some View {
         skatePart.image
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+//            .resizable()
+//            .aspectRatio(contentMode: .fit)
+            .squareImage()
             .padding(.horizontal, 12)
-            .padding(.vertical, 24)
+            .padding(.top, 37)
             .onTapGesture {
                 onSelection?(skatePart.didTapImage())
             }

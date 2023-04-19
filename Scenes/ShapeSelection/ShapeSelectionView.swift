@@ -11,17 +11,17 @@ import SceneKit
 struct ShapeSelectionView: View {
     //    SoundManager.shared.play(name: "g2", withExtension: "MP3")
     
-    var wheels: [Wheel] = [Wheel(id: 1, image: Image("Mock")),
-                           Wheel(id: 2, image: Image("Mock")),
-                           Wheel(id: 3, image: Image("Mock"))]
+    var wheels: [Wheel] = [Wheel(id: 1, image: Image("pinkWheel")),
+                           Wheel(id: 2, image: Image("purpleWheel")),
+                           Wheel(id: 3, image: Image("whiteWheel"))]
     
-    var shapes: [Shape] = [Shape(id: 4, image: Image("Mock")),
-                           Shape(id: 5, image: Image("Mock")),
-                           Shape(id: 6, image: Image("Mock"))]
+    var shapes: [Shape] = [Shape(id: 4, image: Image("blueShape")),
+                           Shape(id: 5, image: Image("purpleShape")),
+                           Shape(id: 6, image: Image("pinkShape"))]
     
-    var trucks: [Truck] = [Truck(id: 7, image: Image("Mock")),
-                           Truck(id: 8, image: Image("Mock")),
-                           Truck(id: 9, image: Image("Mock"))]
+    var trucks: [Truck] = [Truck(id: 7, image: Image("grayTruck")),
+                           Truck(id: 8, image: Image("yellowTruck")),
+                           Truck(id: 9, image: Image("blackTruck"))]
     @State var count = 0
     @State var countSelection = 0
     
@@ -29,36 +29,65 @@ struct ShapeSelectionView: View {
     @ObservedObject var skateModel = SkateModel()
     
     var body: some View {
-        VStack {
-            SceneView(scene: skateModel.mainScene, options: [.allowsCameraControl, .autoenablesDefaultLighting], antialiasingMode: .multisampling4X)
-                .frame(width: UIScreen.main.bounds.width*0.9, height: UIScreen.main.bounds.height*0.65, alignment: .top)
-            Text("Nota: você pode movimentar seu skate e aproximar em cada detalhe que desejar")
-            ZStack{
-                HStack{
-                    if count == 0 {
-                        SkatePartsList(skateParts: shapes) { id in
-                            updateSkateModel(id: id)
-                        }.padding(.bottom, 24)
-                    } else if count == 1 {
-                        SkatePartsList(skateParts: trucks) { id in
-                            updateSkateModel(id: id)
-                        }.padding(.bottom, 24)
-                    } else if count == 2 {
-                        SkatePartsList(skateParts: wheels) { id in
-                            updateSkateModel(id: id)
-                        }.padding(.bottom, 24)
+        ZStack{
+            Image("background3")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width)
+            
+                .ignoresSafeArea(.all)
+            VStack(spacing: 0) {
+//                Spacer()
+                ZStack(alignment: .bottom){
+                    SceneView(scene: skateModel.mainScene, options: [.allowsCameraControl, .autoenablesDefaultLighting], antialiasingMode: .multisampling4X)
+                        .frame(width: UIScreen.main.bounds.width*0.9, height: UIScreen.main.bounds.height*0.60, alignment: .top)
+                    Text("Nota: você pode movimentar seu skate e aproximar em cada detalhe que desejar")
+                        .padding(.bottom, 25)
+                }.padding(.bottom, 10)
+                
+                ZStack{
+                    HStack{
+                        if count == 0 {
+                            ZStack{
+                                Image("backgroundSelection\(count)")
+                                    .backgroundImage()
+                                SkatePartsList(skateParts: shapes) { id in
+                                    updateSkateModel(id: id)
+                                }
+                                
+                            }
+//                            .padding(.bottom, 24)
+                        } else if count == 1 {
+                            ZStack{
+                                Image("backgroundSelection\(count)")
+                                    .backgroundImage()
+                            
+                                SkatePartsList(skateParts: trucks) { id in
+                                    updateSkateModel(id: id)
+                                }
+                                
+                            }
+//                            .padding(.bottom, 24)
+                        } else if count == 2 {
+                            ZStack{
+                                Image("backgroundSelection\(count)")
+                                    .backgroundImage()
+                                SkatePartsList(skateParts: wheels) { id in
+                                    updateSkateModel(id: id)
+                                }
+                            }
+//                            .padding(.bottom, 24)
+                        }
                     }
                 }
                 VStack{
-                    Spacer()
+//                    Spacer()
                     HStack{
                         Spacer().frame(width: UIScreen.main.bounds.width*0.75)
                         if countSelection == 2{
                             NavigationLink(destination: SkateFinal(skateScene: skateModel.mainScene)) {
                                 Image("buttonNext").resizable()
                                     .scaledToFit()
-                                    .scaleEffect(0.36)
-                                    .frame(width: 380, height: 146)
+                                    .frame(width: UIScreen.main.bounds.width*0.129, height: UIScreen.main.bounds.height*0.06)
                             }
                         } else {
                             Button{
@@ -70,19 +99,21 @@ struct ShapeSelectionView: View {
                             } label:{
                                 Image("buttonOk").resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .scaleEffect(0.36)
-                                    .frame(width: 380, height: 146)
+                                    .frame(width: UIScreen.main.bounds.width*0.129, height: UIScreen.main.bounds.height*0.06)
+                                    
                             }
                         }
                     }
                 }
                 
-            }
-        }.ignoresSafeArea()
-            .onAppear {
-                hideOrShowSkateNodes(count: count)
-                //                SoundManager.shared.playBackgroundLoop(name: "energeticHiphop")
-            }
+                
+            }.ignoresSafeArea()
+                .onAppear {
+                    hideOrShowSkateNodes(count: count)
+                    SoundManager.shared.playBackgroundLoop(name: "energeticHiphop")
+                    SoundManager.shared.play(name: "click", withExtension: "mp3")
+                }
+        }
     }
     
     private func updateSkateModel(id: Int) {
@@ -151,5 +182,22 @@ open class Navigation: ObservableObject {
     
     public init(window: UIWindow) {
         self.window = window
+    }
+}
+
+extension Image{
+    func backgroundImage() -> some View{
+        self
+            .resizable()
+            .scaledToFit()
+            .frame(width: UIScreen.main.bounds.width*0.64, height: UIScreen.main.bounds.height*0.26)
+        
+    }
+    
+    func squareImage() -> some View{
+        self
+            .resizable()
+            .scaledToFit()
+            .frame(width: UIScreen.main.bounds.width*0.123, height: UIScreen.main.bounds.height*0.165)
     }
 }

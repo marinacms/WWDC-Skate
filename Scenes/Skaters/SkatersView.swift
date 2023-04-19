@@ -52,6 +52,8 @@ struct SkatersView: View {
                         dimension.height / 2
                     }
             .offset(x: 440, y: 420)
+        }.onAppear{
+            SoundManager.shared.play(name: "click", withExtension: "mp3")
         }
     }
     

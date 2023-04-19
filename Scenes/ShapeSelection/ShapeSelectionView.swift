@@ -9,7 +9,6 @@ import SwiftUI
 import SceneKit
 
 struct ShapeSelectionView: View {
-    //    SoundManager.shared.play(name: "g2", withExtension: "MP3")
     
     var wheels: [Wheel] = [Wheel(id: 1, image: Image("pinkWheel")),
                            Wheel(id: 2, image: Image("purpleWheel")),
@@ -33,14 +32,15 @@ struct ShapeSelectionView: View {
             Image("background3")
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width)
-            
                 .ignoresSafeArea(.all)
+            
             VStack(spacing: 0) {
-//                Spacer()
                 ZStack(alignment: .bottom){
-                    SceneView(scene: skateModel.mainScene, options: [.allowsCameraControl, .autoenablesDefaultLighting], antialiasingMode: .multisampling4X)
+                    CustomSceneView(scene: skateModel.mainScene)
                         .frame(width: UIScreen.main.bounds.width*0.9, height: UIScreen.main.bounds.height*0.60, alignment: .top)
+                    
                     Text("Nota: você pode movimentar seu skate e aproximar em cada detalhe que desejar")
+                        .foregroundColor(Color.black)
                         .padding(.bottom, 25)
                 }.padding(.bottom, 10)
                 
@@ -55,18 +55,18 @@ struct ShapeSelectionView: View {
                                 }
                                 
                             }
-//                            .padding(.bottom, 24)
+                            //                            .padding(.bottom, 24)
                         } else if count == 1 {
                             ZStack{
                                 Image("backgroundSelection\(count)")
                                     .backgroundImage()
-                            
+                                
                                 SkatePartsList(skateParts: trucks) { id in
                                     updateSkateModel(id: id)
                                 }
                                 
                             }
-//                            .padding(.bottom, 24)
+                            //                            .padding(.bottom, 24)
                         } else if count == 2 {
                             ZStack{
                                 Image("backgroundSelection\(count)")
@@ -75,37 +75,10 @@ struct ShapeSelectionView: View {
                                     updateSkateModel(id: id)
                                 }
                             }
-//                            .padding(.bottom, 24)
+                            //                            .padding(.bottom, 24)
                         }
                     }
                 }
-                VStack{
-//                    Spacer()
-                    HStack{
-                        Spacer().frame(width: UIScreen.main.bounds.width*0.75)
-                        if countSelection == 2{
-                            NavigationLink(destination: SkateFinal(skateScene: skateModel.mainScene)) {
-                                Image("buttonNext").resizable()
-                                    .scaledToFit()
-                                    .frame(width: UIScreen.main.bounds.width*0.129, height: UIScreen.main.bounds.height*0.06)
-                            }
-                        } else {
-                            Button{
-                                SoundManager.shared.play(name: "click", withExtension: "mp3")
-                                
-                                self.countSelection += 1
-                                self.count += 1
-                                hideOrShowSkateNodes(count: count)
-                            } label:{
-                                Image("buttonOk").resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.main.bounds.width*0.129, height: UIScreen.main.bounds.height*0.06)
-                                    
-                            }
-                        }
-                    }
-                }
-                
                 
             }.ignoresSafeArea()
                 .onAppear {
@@ -113,25 +86,53 @@ struct ShapeSelectionView: View {
                     SoundManager.shared.playBackgroundLoop(name: "energeticHiphop")
                     SoundManager.shared.play(name: "click", withExtension: "mp3")
                 }
+            
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    if countSelection == 2{
+                        NavigationLink(destination: SkateFinal(skateScene: skateModel.mainScene)) {
+                            Image("buttonNext").resizable()
+                                .scaledToFit()
+                                .frame(width: UIScreen.main.bounds.width*0.129, height: UIScreen.main.bounds.height*0.06)
+                        }
+                        
+                    } else {
+                        Button{
+                            SoundManager.shared.play(name: "click", withExtension: "mp3")
+                            
+                            self.countSelection += 1
+                            self.count += 1
+                            hideOrShowSkateNodes(count: count)
+                        } label:{
+                            Image("buttonOk").resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.width*0.129, height: UIScreen.main.bounds.height*0.06)
+                        }
+                    }
+                }
+                .padding(.trailing, UIScreen.main.bounds.width * 0.05)
+            }
+            .padding(.bottom, UIScreen.main.bounds.height * 0.04)
         }
     }
     
     private func updateSkateModel(id: Int) {
         var node: SCNNode?
         var image: UIImage?
-        var color: UIColor?
         
         switch id {
         case 1...3:
             node = skateModel.wheelNode
             if id == 1 {
-                color = UIColor(red: 0.7011, green: 0.1590, blue: 0.3050, alpha: 1)
+                image = UIImage(named: "pink")
             }
             if id == 2 {
-                color = .white
+                image = UIImage(named: "purple")
             }
             if id == 3 {
-                color = .blue
+                image = UIImage(named: "white")
             }
         case 4...6:
             node = skateModel.shapeNode
@@ -159,16 +160,8 @@ struct ShapeSelectionView: View {
             break
         }
         
-        if let node, let color {
-            if node == skateModel.wheelNode{
-                skateModel.updateNodeDiffuseColor(node: node, color: color)
-            }
-        }
-        
         if let image, let node {
-            if node != skateModel.wheelNode {
-                skateModel.updateNodeDiffuseImage(node: node, image: image)
-            }
+            skateModel.updateNodeDiffuseImage(node: node, image: image)
         }
     }
     

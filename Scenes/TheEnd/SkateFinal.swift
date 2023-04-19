@@ -12,33 +12,55 @@ struct SkateFinal: View {
     
     @State var count = 0
     var skateScene: SCNScene
-    let images = ["Button", "Button"]
+    let images = ["ballonSix", "ballonSeven"]
     
     var body: some View {
-        VStack{
-            CustomSceneView(scene: skateScene)
-            getImage(num: count)
+        ZStack{
+            Image("background3")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width)
+                .ignoresSafeArea(.all)
             
-            if count != images.count - 1 {
-                Button(action: {
-                    count += 1
-                }) {
-                    Text("Ok")
+            ZStack{
+                CustomSceneView(scene: skateScene)
+                getImage(num: count)
+                    .resizable()
+                // .frame(maxWidth: .infinity, maxHeight: . infinity)
+                    .frame(width: UIScreen.main.bounds.width * 0.80, height: UIScreen.main.bounds.height * 0.30)
+                    .padding(.top, 650)
+                HStack{
+                    if count != images.count - 1 {
+                        Button(action: {
+                            count += 1
+                        }) {
+                            Image("buttonOk")
+                                .resizable()
+                        }
+                    } else {
+                        NavigationLink(destination: {
+                            FinalView()
+                                .navigationBarBackButtonHidden(true)
+                        }, label: {
+                            Image("buttonNext")
+                                .resizable()
+                        })
+                    }
+                    
+                    
                 }
-            } else {
-                NavigationLink(destination: {
-                    FinalView()
-                        .navigationBarBackButtonHidden(true)
-                }, label: {
-                    Text("next")
-                })
+                .frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.height * 0.06)
+                .alignmentGuide(.bottom){dimension in
+                        dimension.height / 2
+                    }
+                .offset(x: 440, y: 420)
+                
             }
-        }
-        .onAppear{
-            SoundManager.shared.play(name: "click", withExtension: "mp3")
-        }.onDisappear{
-            SoundManager.shared.stopPlayBackgroundLoop()
-        }
+            .onAppear{
+                SoundManager.shared.play(name: "click", withExtension: "mp3")
+            }.onDisappear{
+                SoundManager.shared.stopPlayBackgroundLoop()
+            }
+        }.navigationBarBackButtonHidden(true)
     }
     
     private func getImage(num: Int) -> Image {

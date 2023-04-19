@@ -5,7 +5,8 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-              Onboarding()
+                              Onboarding()
+//                ShapeSelectionView()
             }.navigationViewStyle(.stack)
         }
     }

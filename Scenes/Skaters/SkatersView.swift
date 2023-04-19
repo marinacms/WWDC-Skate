@@ -14,21 +14,21 @@ struct SkatersView: View {
     var body: some View {
         ZStack{
             getImage(num: count)
-            HStack{
-                VStack{
-                    Image("MockImage2")
-                        .resizable()
-                        .scaledToFit()
-                        .scaleEffect(0.8)
-                        .padding(.bottom,16)
-                    
-                    Text("Hello, World!")
-                    Spacer()
-                }
-                
-             //   GirlsSkate()
-                
-            }
+//            HStack{
+//                VStack{
+//                    Image("MockImage2")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .scaleEffect(0.8)
+//                        .padding(.bottom,16)
+//
+//                    Text("Hello, World!")
+//                    Spacer()
+//                }
+//
+//             //   GirlsSkate()
+//
+//            }
             HStack{
                 if count != background.count - 1 {
                     Button(action: { count += 1 }) {
@@ -55,6 +55,7 @@ struct SkatersView: View {
         }.onAppear{
             SoundManager.shared.play(name: "click", withExtension: "mp3")
         }
+        .ignoresSafeArea(.all)
     }
     
     

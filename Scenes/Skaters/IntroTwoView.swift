@@ -23,30 +23,44 @@ struct IntroTwoView: View {
                 .frame(width: UIScreen.main.bounds.width)
                 .ignoresSafeArea(.all)
             
-            ZStack{
-                getImage(num: count)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width * 0.80, height: UIScreen.main.bounds.height * 0.30)
-                    .padding(.top, 650)
+            getImage(num: count)
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width * 0.80, height: UIScreen.main.bounds.height * 0.30)
+                .padding(.top, 650)
                 
-                HStack{
-                    
+            VStack{
+                Spacer()
                     if count != images.count - 1 {
-                        Button(action: { count += 1 }) {
-                            Image("buttonOk")
+                        HStack {
+                            Spacer()
+                            Button(action: { count += 1 }) {
+                                Image("buttonOk")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.height * 0.06)
+                            }
                         }
+                        .padding(.horizontal, UIScreen.main.bounds.width * 0.13)
+
                     } else {
-                        
-                        NavigationLink(destination: {
-                            ShapeSelectionView()
-                                .navigationBarBackButtonHidden(true)
-                        }, label: {
-                            Image("buttonYes")
-                        })
-                        
+                        HStack {
+                            Spacer()
+                            
+                            NavigationLink(destination: {
+                                ShapeSelectionView()
+                                    .navigationBarBackButtonHidden(true)
+                            }, label: {
+                                Image("buttonYes")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.height * 0.06)
+                            })
+                        }
+                        .padding(.horizontal, UIScreen.main.bounds.width * 0.13)
+
                     }
-                }.frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.height * 0.06)
+        
             }
+            .padding(.bottom, UIScreen.main.bounds.height * 0.04)
+            
         }.onAppear{
             SoundManager.shared.play(name: "click", withExtension: "mp3")
         }
